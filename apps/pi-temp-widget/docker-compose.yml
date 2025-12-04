@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+    container_name: umbrel_pi_temp_widget
+    restart: unless-stopped
+    environment:
+      - PORT=7777
+    volumes:
+      - /sys/class/thermal:/sys/class/thermal:ro
+    ports:
+      - "7777:7777"
+
+networks:
+  default:
+    driver: bridge

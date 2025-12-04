@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pi Temp Widget</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      margin-top: 60px;
+    }
+    .ring {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 12px solid #333;
+      border-top-color: #0f0;
+      animation: spin 2s linear infinite;
+      margin: 0 auto 20px;
+    }
+    .temp {
+      font-size: 32px;
+      margin-top: 10px;
+    }
+    .status {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="ring" id="ring"></div>
+  <div class="temp" id="temp">Loading...</div>
+  <div class="status" id="status"></div>
+
+  <script>
+    async function update() {
+      try {
+        const res = await fetch("/api/temp");
+        const data = await res.json();
+        const t = data.temperature;
+        document.getElementById("temp").innerText = t.toFixed(1) + "°C";
+        document.getElementById("status").innerText = data.status.toUpperCase();
+
+        const ring = document.getElementById("ring");
+        if (data.status === "cool") ring.style.borderTopColor = "#0f0";
+        else if (data.status === "warm") ring.style.borderTopColor = "yellow";
+        else ring.style.borderTopColor = "red";
+      } catch (e) {
+        document.getElementById("temp").innerText = "Error reading temp";
+        document.getElementById("status").innerText = "";
+      }
+    }
+
+    update();
+    setInterval(update, 2000);
+  </script>
+</body>
+</html>

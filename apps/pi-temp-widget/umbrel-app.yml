@@ -1,0 +1,23 @@
+manifestVersion: 1
+id: pi-temp-widget
+name: Pi Temp Widget
+category: system
+version: "1.0.0"
+tagline: Flashy Raspberry Pi temperature monitor
+icon: icon.svg
+
+port: 7777
+path: "/"
+
+description: >
+  A flashy Raspberry Pi temperature monitor with a spinning ring and
+  green/yellow/red alerts depending on temperature.
+
+developer: Cesar
+website: "https://github.com/currascano/cesar-umbrel-store"
+submitter: Cesar
+repo: "https://github.com/currascano/cesar-umbrel-store"
+support: "https://github.com/currascano/cesar-umbrel-store/issues"
+
+dependencies: []
+deterministicPassword: false
